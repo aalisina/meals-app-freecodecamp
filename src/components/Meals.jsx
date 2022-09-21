@@ -1,9 +1,7 @@
-import React from 'react'
+import React from "react";
 
 function Meals() {
-    return (
-        <h1>Meals component</h1>
-    )
+  return <h1>Meals component</h1>;
 }
 
-export default Meals
+export default Meals;

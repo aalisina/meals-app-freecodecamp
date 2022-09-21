@@ -17,15 +17,13 @@ setup basic return (component name)
 or my personal favorite "shake and bake"
 export default
 const Search = () => {
-  return <h1>Dude, where is my car<h1>
+return <h1>Dude, where is my car<h1>
 }
 export default Search
 import all of them in App.js
 setup following structure
 
 import './App.css'
-
-
 
 import Search from './components/Search'
 import Meals from './components/Meals'
@@ -34,26 +32,26 @@ import Favorites from './components/Favorites'
 
 export default function App() {
 
-  return (
-    <main>
-      <Search />
-      <Favorites/>
-      <Meals />
-      <Modal />
-    </main>
-  )
+return (
+<main>
+<Search />
+<Favorites/>
+<Meals />
+<Modal />
+</main>
+)
 }
 comment out Search, Favorites, Modal
 export default function App() {
 
-  return (
-    <main>
-      {/* <Search /> */}  
-      {/* <Favorites/>*/}  
-      <Meals />
-      {/*  <Modal /> */}  
-    </main>
-  )
+return (
+<main>
+{/_ <Search /> _/}  
+ {/_ <Favorites/>_/}  
+ <Meals />
+{/_ <Modal /> _/}  
+ </main>
+)
 }
 App Level State
 in App.js
@@ -67,20 +65,18 @@ Context API
 create context.js in the root
 context.jsx
 
-
 import React, {useContext} from 'react'
 
 const AppContext = React.createContext()
 
-
 const AppProvider = ({ children }) => {
 
-  return (
-    <AppContext.Provider
-      value="hello">
-      {children}
-    </AppContext.Provider>
-  )
+return (
+<AppContext.Provider
+value="hello">
+{children}
+</AppContext.Provider>
+)
 }
 
 export { AppContext, AppProvider }
@@ -91,11 +87,11 @@ import ReactDOM from 'react-dom/client'
 import App from './App'
 import { AppProvider } from './context'
 ReactDOM.createRoot(document.getElementById('root')).render(
-	<React.StrictMode>
-    <AppProvider>
-		<App />
-    </AppProvider>
-	</React.StrictMode>
+<React.StrictMode>
+<AppProvider>
+<App />
+</AppProvider>
+</React.StrictMode>
 )
 Consume Data
 /components/Meals.jsx
@@ -103,9 +99,9 @@ Consume Data
 import {useContext} from 'react'
 import {AppContext} from '../context'
 const Meals = () => {
-  const context = useContext(AppContext);
-  console.log(context)
-  return <h1>Meals Component</h1>
+const context = useContext(AppContext);
+console.log(context)
+return <h1>Meals Component</h1>
 }
 
 export default Meals
@@ -113,13 +109,13 @@ Custom Hook
 context.jsx
 
 export const useGlobalContext = () => {
-  return useContext(AppContext)
+return useContext(AppContext)
 }
 import {useGlobalContext} from '../context'
 const Meals = () => {
-  const context = useGlobalContext()
-  console.log(context)
-  return <h1>Meals Component</h1>
+const context = useGlobalContext()
+console.log(context)
+return <h1>Meals Component</h1>
 }
 
 export default Meals
@@ -131,18 +127,15 @@ import React, { useContext,useEffect } from 'react'
 
 const AppContext = React.createContext()
 
-
 const AppProvider = ({ children }) => {
-  
-  useEffect(()=>{
-    console.log('fetch data here')  
-  },[])
 
+useEffect(()=>{
+console.log('fetch data here')  
+ },[])
 
-  
-  return <AppContext.Provider value={{name:'john', role:'student'}}>
-    {children}
-  </AppContext.Provider>
+return <AppContext.Provider value={{name:'john', role:'student'}}>
+{children}
+</AppContext.Provider>
 }
 fetch data (fetch api or axios), from any url in useEffect cb
 log result
@@ -152,18 +145,18 @@ random user
 context.jsx
 
 const AppProvider = ({ children }) => {
-  useEffect(()=>{
-    const fetchData = async() =>{
-      try {
-        const response = await fetch('https://randomuser.me/api/')
-        const data = await response.json();
-        console.log(data)
-      } catch (error) {
-                console.log(error)
-      }
-    }
-    fetchData()
-  },[])
+useEffect(()=>{
+const fetchData = async() =>{
+try {
+const response = await fetch('https://randomuser.me/api/')
+const data = await response.json();
+console.log(data)
+} catch (error) {
+console.log(error)
+}
+}
+fetchData()
+},[])
 Meals DB
 utilize search engine "meals db", follow the link
 Meals DB
@@ -195,28 +188,24 @@ import axios from 'axios'
 const allMealsUrl = 'https://www.themealdb.com/api/json/v1/1/search.php?s='
 const randomMealUrl = 'https://www.themealdb.com/api/json/v1/1/random.php'
 
-
-
-
 const AppProvider = ({ children }) => {
-  
-  const fetchMeals = async (url) => {
-    
+
+const fetchMeals = async (url) => {
+
     try {
       const response = await axios(url)
      console.log(response)
-   
+
     }
     catch (e) {
       console.log(e.response)
     }
-    
-  }
 
+}
 
-  useEffect(() => {
-    fetchMeals(allMealsUrl)
-  }, [])
+useEffect(() => {
+fetchMeals(allMealsUrl)
+}, [])
 State Variable (meals) and render
 import useState hook
 setup state variable (meals)
@@ -229,10 +218,10 @@ render something (anything) on the screen
 import React, { useState, useContext, useEffect } from 'react'
 
 const AppProvider = ({ children }) => {
-  const [meals, setMeals] = useState([])
-  
-  const fetchMeals = async (url) => {
-   
+const [meals, setMeals] = useState([])
+
+const fetchMeals = async (url) => {
+
     try {
       const { data } = await axios.get(url)
       setMeals(data.meals)
@@ -241,41 +230,36 @@ const AppProvider = ({ children }) => {
 
       console.log(e.response)
     }
-    
-  }
 
+}
 
-  useEffect(() => {
-   
+useEffect(() => {
+
       fetchMeals(allMealsUrl)
-    
 
-  }, [])
+}, [])
 
-  return (
-    <AppContext.Provider
-      value={{ meals }}
-    >
-      {children}
-    </AppContext.Provider>
-  )
+return (
+<AppContext.Provider
+value={{ meals }} >
+{children}
+</AppContext.Provider>
+)
 }
 /components/Meals.jsx
 
 import { useGlobalContext } from '../context'
 
 const Meals = () => {
-  const { meals } = useGlobalContext();
+const { meals } = useGlobalContext();
 
-  
+return <section >
+{meals.map((singleMeal) => {
+console.log(singleMeal)
+return <h4>single meal</h4>
 
-  
-  return <section >
-    {meals.map((singleMeal) => {
-      console.log(singleMeal)
-      return <h4>single meal</h4>
-        
     })}
+
   </section>
 
 }
@@ -287,20 +271,20 @@ Meals Component - Display Card
 import { useGlobalContext } from '../context'
 
 const Meals = () => {
-  const { meals } = useGlobalContext();
+const { meals } = useGlobalContext();
 
-  
-  return <section className="section-center">
-    {meals.map((singleMeal) => {
-      const { idMeal, strMeal: title, strMealThumb: image } = singleMeal
-      return <article key={idMeal} className="single-meal" >
-        <img src={image} style={{width:'200px'}} className="img"} />
-        <footer>
-          <h5>{title}</h5>
-          <button className='like-btn'>click me</button>
-        </footer>
-      </article>
-    })}
+return <section className="section-center">
+{meals.map((singleMeal) => {
+const { idMeal, strMeal: title, strMealThumb: image } = singleMeal
+return <article key={idMeal} className="single-meal" >
+<img src={image} style={{width:'200px'}} className="img"} />
+<footer>
+<h5>{title}</h5>
+<button className='like-btn'>click me</button>
+</footer>
+</article>
+})}
+
   </section>
 
 }
@@ -332,42 +316,41 @@ if loading is true
 context.jsx
 
 const AppProvider = ({ children }) => {
-  const [meals, setMeals] = useState([])
-  const [loading, setLoading] = useState(false)
-  
+const [meals, setMeals] = useState([])
+const [loading, setLoading] = useState(false)
 
-  const fetchMeals = async (url) => {
-    setLoading(true)
-    try {
-      const { data } = await axios.get(url)
-        setMeals(data.meals)
-    }
-    catch (e) {
+const fetchMeals = async (url) => {
+setLoading(true)
+try {
+const { data } = await axios.get(url)
+setMeals(data.meals)
+}
+catch (e) {
 
       console.log(e.response)
     }
     setLoading(false)
-  }
-  return (
-    <AppContext.Provider
-      value={{ loading, meals }}
-    >
-      {children}
-    </AppContext.Provider>
-  )
+
+}
+return (
+<AppContext.Provider
+value={{ loading, meals }} >
+{children}
+</AppContext.Provider>
+)
 }
 /components/Meals.jsx
 
 import { useGlobalContext } from '../context'
 import { BsHandThumbsUp } from 'react-icons/bs'
 const Meals = () => {
-  const { loading, meals } = useGlobalContext();
+const { loading, meals } = useGlobalContext();
 
-  if (loading) {
-    return <section className="section">
-      <h4>Loading...</h4>
-    </section>
-  }
+if (loading) {
+return <section className="section">
+<h4>Loading...</h4>
+</section>
+}
 }
 No items
 in fetchMeals check if data.meals is truthy
@@ -380,53 +363,52 @@ if that's the case return
 No items
 place it between loading and current return (cards) context.jsx
 const AppProvider = ({ children }) => {
-  const [meals, setMeals] = useState([])
-  const [loading, setLoading] = useState(false)
-  
+const [meals, setMeals] = useState([])
+const [loading, setLoading] = useState(false)
 
-  const fetchMeals = async (url) => {
-    setLoading(true)
-    try {
-      const { data } = await axios.get(url)
-      if (data.meals) {
-        setMeals(data.meals)
-      }
-      else {
-        setMeals([])
-      }
-    }
-    catch (e) {
+const fetchMeals = async (url) => {
+setLoading(true)
+try {
+const { data } = await axios.get(url)
+if (data.meals) {
+setMeals(data.meals)
+}
+else {
+setMeals([])
+}
+}
+catch (e) {
 
       console.log(e.response)
     }
     setLoading(false)
-  }
-  return (
-    <AppContext.Provider
-      value={{ loading, meals }}
-    >
-      {children}
-    </AppContext.Provider>
-  )
+
+}
+return (
+<AppContext.Provider
+value={{ loading, meals }} >
+{children}
+</AppContext.Provider>
+)
 }
 /components/Meals.jsx
 
 import { useGlobalContext } from '../context'
 import { BsHandThumbsUp } from 'react-icons/bs'
 const Meals = () => {
-  const { loading, meals } = useGlobalContext();
+const { loading, meals } = useGlobalContext();
 
-  if (loading) {
-    return <section className="section">
-      <h4>Loading...</h4>
-    </section>
-  }
+if (loading) {
+return <section className="section">
+<h4>Loading...</h4>
+</section>
+}
 
-  if (meals.length < 1) {
-    return <section className="section">
-      <h4>No meals matched your search term. Please try again.</h4>
-    </section>
-  }
+if (meals.length < 1) {
+return <section className="section">
+<h4>No meals matched your search term. Please try again.</h4>
+</section>
+}
 }
 Search Component - Structure
 in Search.jsx
@@ -440,23 +422,20 @@ button.btn.btn-hipster type="button"
 in App.jsx display Search Component
 /components/Search.jsx
 
-
 import { useState } from 'react'
-import {useGlobalContext} from '../context' 
-
-
+import {useGlobalContext} from '../context'
 
 const Search = () => {
 
-  return <header className='search-container'>
-    <form>
-      <input type='text' placeholder='type favorite meal' className='form-input' />
-      <button type="submit" className="btn">search</button>
-      <button type="button" className="btn btn-hipster">suprise me !</button>
-    </form>
+return <header className='search-container'>
+<form>
+<input type='text' placeholder='type favorite meal' className='form-input' />
+<button type="submit" className="btn">search</button>
+<button type="button" className="btn btn-hipster">suprise me !</button>
+</form>
+
   </header>
 }
-
 
 export default Search
 Search Component - CSS
@@ -469,33 +448,30 @@ in the handleSubmit set e.preventDefault()
 add onSubmit to form element and set it equal to handleSubmit
 Search.jsx
 
-
 import { useState } from 'react'
-import {useGlobalContext} from '../context' 
-
-
+import {useGlobalContext} from '../context'
 
 const Search = () => {
-  
-  const [text, setText] = useState('')
 
-  const handleChange = (e) => {
-    setText(e.target.value)
-  }
-  const handleSubmit = (e) => {
-    e.preventDefault()
-   
-  }
+const [text, setText] = useState('')
 
-  return <header className='search-container'>
-    <form onSubmit={handleSubmit} >
-      <input type='text' onChange={handleChange} value={text} placeholder='type favorite meal' className='form-input' />
-      <button type="submit" className="btn">search</button>
-      <button type="btn" className="btn btn-hipster">suprise me !</button>
-    </form>
-  </header>
+const handleChange = (e) => {
+setText(e.target.value)
+}
+const handleSubmit = (e) => {
+e.preventDefault()
+
 }
 
+return <header className='search-container'>
+<form onSubmit={handleSubmit} >
+<input type='text' onChange={handleChange} value={text} placeholder='type favorite meal' className='form-input' />
+<button type="submit" className="btn">search</button>
+<button type="btn" className="btn btn-hipster">suprise me !</button>
+</form>
+
+  </header>
+}
 
 export default Search
 Search Term
@@ -509,126 +485,118 @@ if the "text" has a value set it equal to "searchTerm"
 context.jsx
 
 const AppProvider = ({ children }) => {
-  const [meals, setMeals] = useState([])
-  const [loading, setLoading] = useState(false)
-  const [searchTerm, setSearchTerm] = useState('')
-  
+const [meals, setMeals] = useState([])
+const [loading, setLoading] = useState(false)
+const [searchTerm, setSearchTerm] = useState('')
 
-  const fetchMeals = async (url) => {
-    setLoading(true)
-    try {
-      const { data } = await axios.get(url)
-      if (data.meals) {
-        setMeals(data.meals)
-      }
-      else {
-        setMeals([])
-      }
-    }
-    catch (e) {
+const fetchMeals = async (url) => {
+setLoading(true)
+try {
+const { data } = await axios.get(url)
+if (data.meals) {
+setMeals(data.meals)
+}
+else {
+setMeals([])
+}
+}
+catch (e) {
 
       console.log(e.response)
     }
     setLoading(false)
-  }
 
+}
 
-  useEffect(() => {
-      fetchMeals(`${allMealsUrl}${searchTerm}`)
-  }, [searchTerm])
+useEffect(() => {
+fetchMeals(`${allMealsUrl}${searchTerm}`)
+}, [searchTerm])
 
- 
-  return (
-    <AppContext.Provider
-      value={{ loading, meals, setSearchTerm }}
-    >
-      {children}
-    </AppContext.Provider>
-  )
+return (
+<AppContext.Provider
+value={{ loading, meals, setSearchTerm }} >
+{children}
+</AppContext.Provider>
+)
 }
 /components/Search.jsx
 
 import { useState } from 'react'
-import {useGlobalContext} from '../context' 
-
-
+import {useGlobalContext} from '../context'
 
 const Search = () => {
-  const { setSearchTerm } = useGlobalContext()
-  const [text, setText] = useState('')
+const { setSearchTerm } = useGlobalContext()
+const [text, setText] = useState('')
 
-  const handleChange = (e) => {
-    setText(e.target.value)
-  }
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    if (text) {
-      setSearchTerm(text)
-    
+const handleChange = (e) => {
+setText(e.target.value)
+}
+const handleSubmit = (e) => {
+e.preventDefault()
+if (text) {
+setSearchTerm(text)
+
     }
-  }
 
-  return <header className='search-container'>
-    <form onSubmit={handleSubmit} >
-      <input type='text' onChange={handleChange} value={text} placeholder='type favorite meal' className='form-input' />
-      <button type="submit" className="btn">search</button>
-      <button type="btn" className="btn btn-hipster" >suprise me !</button>
-    </form>
-  </header>
 }
 
+return <header className='search-container'>
+<form onSubmit={handleSubmit} >
+<input type='text' onChange={handleChange} value={text} placeholder='type favorite meal' className='form-input' />
+<button type="submit" className="btn">search</button>
+<button type="btn" className="btn btn-hipster" >suprise me !</button>
+</form>
+
+  </header>
+}
 
 export default Search
 Fetch Random Meal
 context.jsx
 
 const AppProvider = ({ children }) => {
-  
 
-  const fetchRandomMeal = () => {
-    fetchMeals(randomMealUrl)
-  }
+const fetchRandomMeal = () => {
+fetchMeals(randomMealUrl)
+}
 
-  
-  return (
-    <AppContext.Provider
-      value={{ loading, meals, setSearchTerm, fetchRandomMeal}}
-    >
-      {children}
-    </AppContext.Provider>
-  )
+return (
+<AppContext.Provider
+value={{ loading, meals, setSearchTerm, fetchRandomMeal}} >
+{children}
+</AppContext.Provider>
+)
 }
 /components/Search.jsx
 
 import { useState } from 'react'
-import {useGlobalContext} from '../context' 
-
-
+import {useGlobalContext} from '../context'
 
 const Search = () => {
-  const { setSearchTerm, fetchRandomMeal } = useGlobalContext()
-  const [text, setText] = useState('')
+const { setSearchTerm, fetchRandomMeal } = useGlobalContext()
+const [text, setText] = useState('')
 
-  const handleChange = (e) => {
-    setText(e.target.value)
-  }
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    if (text) {
-      setSearchTerm(text)
-      
+const handleChange = (e) => {
+setText(e.target.value)
+}
+const handleSubmit = (e) => {
+e.preventDefault()
+if (text) {
+setSearchTerm(text)
+
     }
-  }
 
-  return <header className='search-container'>
-    <form onSubmit={handleSubmit} >
-      <input type='text' onChange={handleChange} value={text} placeholder='type favorite meal' className='form-input' />
-      <button type="submit" className="btn">search</button>
-      <button type="btn" className="btn btn-hipster" onClick={fetchRandomMeal}>suprise me !</button>
-    </form>
-  </header>
 }
 
+return <header className='search-container'>
+<form onSubmit={handleSubmit} >
+<input type='text' onChange={handleChange} value={text} placeholder='type favorite meal' className='form-input' />
+<button type="submit" className="btn">search</button>
+<button type="btn" className="btn btn-hipster" onClick={fetchRandomMeal}>suprise me !</button>
+</form>
+
+  </header>
+}
 
 export default Search
 Fix Bugs
@@ -637,63 +605,56 @@ Fix Bugs
 import { useState } from 'react'
 import { useGlobalContext } from '../context'
 
-
-
 const Search = () => {
-  const { setSearchTerm, fetchRandomMeal } = useGlobalContext()
-  const [text, setText] = useState('')
+const { setSearchTerm, fetchRandomMeal } = useGlobalContext()
+const [text, setText] = useState('')
 
-  const handleChange = (e) => {
-    setText(e.target.value)
-  }
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    if (text) {
-      setSearchTerm(text)
-    }
-  }
-
-  const handleRandomMeal = () => {
-    setSearchTerm('')
-    setText('')
-    fetchRandomMeal()
-  }
-
-  return <header className='search-container'>
-    <form onSubmit={handleSubmit} >
-      <input type='text' onChange={handleChange} value={text} placeholder='type favorite meal' className='form-input' />
-      <button type="submit" className="btn">search</button>
-      <button type="btn" className="btn btn-hipster" onClick={handleRandomMeal}>suprise me !</button>
-    </form>
-  </header>
+const handleChange = (e) => {
+setText(e.target.value)
+}
+const handleSubmit = (e) => {
+e.preventDefault()
+if (text) {
+setSearchTerm(text)
+}
 }
 
+const handleRandomMeal = () => {
+setSearchTerm('')
+setText('')
+fetchRandomMeal()
+}
+
+return <header className='search-container'>
+<form onSubmit={handleSubmit} >
+<input type='text' onChange={handleChange} value={text} placeholder='type favorite meal' className='form-input' />
+<button type="submit" className="btn">search</button>
+<button type="btn" className="btn btn-hipster" onClick={handleRandomMeal}>suprise me !</button>
+</form>
+
+  </header>
+}
 
 export default Search
 context.jsx
 
 const AppProvider = ({ children }) => {
-  
 
+useEffect(() => {
+fetchMeals(allMealsUrl)
+}, [])
 
-  useEffect(() => {
-    fetchMeals(allMealsUrl)
-  }, [])
+useEffect(() => {
+if (!searchTerm) return
+fetchMeals(`${allMealsUrl}${searchTerm}`)
+}, [searchTerm])
 
-  useEffect(() => {
-    if (!searchTerm) return
-    fetchMeals(`${allMealsUrl}${searchTerm}`)
-  }, [searchTerm])
-
-
-  
-  return (
-    <AppContext.Provider
-      value={{ loading, meals, setSearchTerm, fetchRandomMeal}}
-    >
-      {children}
-    </AppContext.Provider>
-  )
+return (
+<AppContext.Provider
+value={{ loading, meals, setSearchTerm, fetchRandomMeal}} >
+{children}
+</AppContext.Provider>
+)
 }
 Modal - Setup
 /components/Modal.jsx
@@ -701,11 +662,12 @@ Modal - Setup
 import { useGlobalContext } from '../context'
 
 const Modal = () => {
-  
-  return <aside className='modal-overlay'>
-    <div className='modal-container'>
-      modal content here
-    </div>
+
+return <aside className='modal-overlay'>
+<div className='modal-container'>
+modal content here
+</div>
+
   </aside>
 }
 
@@ -713,36 +675,30 @@ export default Modal
 context.jsx
 
 const AppProvider = ({ children }) => {
- 
 
-  const [showModal, setShowModal] = useState(false)
- 
+const [showModal, setShowModal] = useState(false)
 
-  
-  return (
-    <AppContext.Provider
-      value={{ loading, meals, setSearchTerm, fetchRandomMeal, showModal }}
-    >
-      {children}
-    </AppContext.Provider>
-  )
+return (
+<AppContext.Provider
+value={{ loading, meals, setSearchTerm, fetchRandomMeal, showModal }} >
+{children}
+</AppContext.Provider>
+)
 }
 App.jsx
 
 import { useGlobalContext } from './context'
 import './App.css'
 
-
-
 import Search from './components/Search'
 import Meals from './components/Meals'
 import Modal from './components/Modal'
 import Favorites from './components/Favorites'
 export default function App() {
-  const { showModal } = useGlobalContext()
+const { showModal } = useGlobalContext()
 
-  return (
-    <main>
+return (
+<main>
 
       <Search />
       {/*<Favorites/>*/}
@@ -750,86 +706,87 @@ export default function App() {
       <Meals />
       {showModal && <Modal />}
     </main>
-  )
+
+)
 }
 Modal CSS - Setup
 App.css
 
 .modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.85);
-  display: grid;
-  place-items: center;
-  transition: var(--transition);
- z-index:100;
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background: rgba(0, 0, 0, 0.85);
+display: grid;
+place-items: center;
+transition: var(--transition);
+z-index:100;
 }
 .modal-container{
-  width:80vw;
-  max-width:800px;
-  height:80vh;
-  overflow:scroll;
-  background:var(--white);
-  border-radius:var(--borderRadius);
+width:80vw;
+max-width:800px;
+height:80vh;
+overflow:scroll;
+background:var(--white);
+border-radius:var(--borderRadius);
 }
 Display Meal in the Modal
 context.jsx
 
 const AppProvider = ({ children }) => {
- 
-  const [selectedMeal, setSelectedMeal] = useState(null)
 
- 
-  const selectMeal = (idMeal, favoriteMeal) => {
-    let meal;
-    
+const [selectedMeal, setSelectedMeal] = useState(null)
+
+const selectMeal = (idMeal, favoriteMeal) => {
+let meal;
+
       meal = meals.find((meal) => meal.idMeal === idMeal);
-    
+
     setSelectedMeal(meal);
     setShowModal(true)
-  }
-  
-  return (
-   <AppContext.Provider
-      value={{ loading, meals, setSearchTerm, fetchRandomMeal, showModal, selectMeal, selectedMeal }}
-    >
-      {children}
-    </AppContext.Provider>
-  )
+
+}
+
+return (
+<AppContext.Provider
+value={{ loading, meals, setSearchTerm, fetchRandomMeal, showModal, selectMeal, selectedMeal }} >
+{children}
+</AppContext.Provider>
+)
 }
 /components/Meals.jsx
 
 import { useGlobalContext } from '../context'
 import { BsHandThumbsUp } from 'react-icons/bs'
 const Meals = () => {
-  const { loading, meals, selectMeal } = useGlobalContext();
+const { loading, meals, selectMeal } = useGlobalContext();
 
-  if (loading) {
-    return <section className="section">
-      <h4>Loading...</h4>
-    </section>
-  }
+if (loading) {
+return <section className="section">
+<h4>Loading...</h4>
+</section>
+}
 
-  if (meals.length < 1) {
-    return <section className="section">
-      <h4>No meals matched your search term. Please try again.</h4>
-    </section>
-  }
+if (meals.length < 1) {
+return <section className="section">
+<h4>No meals matched your search term. Please try again.</h4>
+</section>
+}
 
-  return <section className="section-center">
-    {meals.map((singleMeal) => {
-      const { idMeal, strMeal: title, strMealThumb: image } = singleMeal
-      return <article key={idMeal} className="single-meal" >
-        <img src={image} className="img" onClick={() => selectMeal(idMeal)} />
-        <footer>
-          <h5>{title}</h5>
-          <button className='like-btn'><BsHandThumbsUp /></button>
-        </footer>
-      </article>
-    })}
+return <section className="section-center">
+{meals.map((singleMeal) => {
+const { idMeal, strMeal: title, strMealThumb: image } = singleMeal
+return <article key={idMeal} className="single-meal" >
+<img src={image} className="img" onClick={() => selectMeal(idMeal)} />
+<footer>
+<h5>{title}</h5>
+<button className='like-btn'><BsHandThumbsUp /></button>
+</footer>
+</article>
+})}
+
   </section>
 
 }
@@ -839,38 +796,38 @@ Display Selcted Meal and Close Modal
 context.jsx
 
 const AppProvider = ({ children }) => {
-  
-  const closeModal = () => {
-    setShowModal(false)
-  }
-  
-  return (
-    <AppContext.Provider
-      value={{ loading, meals, setSearchTerm, fetchRandomMeal, showModal, selectMeal, selectedMeal, closeModal}}
-    >
-      {children}
-    </AppContext.Provider>
-  )
+
+const closeModal = () => {
+setShowModal(false)
+}
+
+return (
+<AppContext.Provider
+value={{ loading, meals, setSearchTerm, fetchRandomMeal, showModal, selectMeal, selectedMeal, closeModal}} >
+{children}
+</AppContext.Provider>
+)
 }
 /components/Modal.jsx
 
 import { useGlobalContext } from '../context'
 
 const Modal = () => {
-  const { selectedMeal, closeModal } = useGlobalContext()
+const { selectedMeal, closeModal } = useGlobalContext()
 
-  const { strMealThumb: image, strMeal: title, strInstructions: text, strSource: source } = selectedMeal
-  return <aside className='modal-overlay'>
-    <div className='modal-container'>
-      <img src={image} className="img modal-img" />
-      <div className='modal-content'>
-        <h4>{title}</h4>
-        <p>Cooking Instructions</p>
-        <p> {text}</p>
-        <a href={source} target="_blank">Original Source</a>
-        <button className="btn btn-hipster close-btn" onClick={closeModal}>close</button>
-      </div>
-    </div>
+const { strMealThumb: image, strMeal: title, strInstructions: text, strSource: source } = selectedMeal
+return <aside className='modal-overlay'>
+<div className='modal-container'>
+<img src={image} className="img modal-img" />
+<div className='modal-content'>
+<h4>{title}</h4>
+<p>Cooking Instructions</p>
+<p> {text}</p>
+<a href={source} target="_blank">Original Source</a>
+<button className="btn btn-hipster close-btn" onClick={closeModal}>close</button>
+</div>
+</div>
+
   </aside>
 }
 
@@ -879,90 +836,89 @@ Modal CSS - Complete
 App.css
 
 .modal-img{
- height:15rem;
-  border-top-left-radius:var(--borderRadius);
-  border-top-right-radius:var(--borderRadius);
+height:15rem;
+border-top-left-radius:var(--borderRadius);
+border-top-right-radius:var(--borderRadius);
 
 }
 
 .modal-content{
-  padding:1rem 1.5rem;
+padding:1rem 1.5rem;
 }
 .modal-content p{
-  color:var(--grey-600);
+color:var(--grey-600);
 }
 .modal-content a{
-  display:block;
-  color:var(--primary-500);
-  margin-bottom:1rem;
-  text-decoration:underline;
-  transition:var(--transition);
+display:block;
+color:var(--primary-500);
+margin-bottom:1rem;
+text-decoration:underline;
+transition:var(--transition);
 }
 .modal-content a:hover{
-  
-  color:var(--black);
+
+color:var(--black);
 }
 .close-btn{
-  background:var(--red-dark);
-  color:var(--white);
+background:var(--red-dark);
+color:var(--white);
 }
 Favorites - Setup
 context.jsx
 
 const AppProvider = ({ children }) => {
-  
-  const [favorites, setFavorites] = useState([]);
 
-  
-  const addToFavorites = (idMeal) => {
-    const meal = meals.find((meal) => meal.idMeal === idMeal);
-    const alreadyFavorite = favorites.find((meal) => meal.idMeal === idMeal);
-    if (alreadyFavorite) return
-    const updatedFavorites = [...favorites, meal]
-    setFavorites(updatedFavorites)
-  }
-  const removeFromFavorites = (idMeal) => {
-    const updatedFavorites = favorites.filter((meal) => meal.idMeal !== idMeal);
-    setFavorites(updatedFavorites)
-  }
-  return (
-    <AppContext.Provider
-      value={{ loading, meals, setSearchTerm, fetchRandomMeal, showModal, selectMeal, selectedMeal, closeModal, favorites, addToFavorites, removeFromFavorites }}
-    >
-      {children}
-    </AppContext.Provider>
-  )
+const [favorites, setFavorites] = useState([]);
+
+const addToFavorites = (idMeal) => {
+const meal = meals.find((meal) => meal.idMeal === idMeal);
+const alreadyFavorite = favorites.find((meal) => meal.idMeal === idMeal);
+if (alreadyFavorite) return
+const updatedFavorites = [...favorites, meal]
+setFavorites(updatedFavorites)
+}
+const removeFromFavorites = (idMeal) => {
+const updatedFavorites = favorites.filter((meal) => meal.idMeal !== idMeal);
+setFavorites(updatedFavorites)
+}
+return (
+<AppContext.Provider
+value={{ loading, meals, setSearchTerm, fetchRandomMeal, showModal, selectMeal, selectedMeal, closeModal, favorites, addToFavorites, removeFromFavorites }} >
+{children}
+</AppContext.Provider>
+)
 }
 /components/Meals.jsx
 
 import { useGlobalContext } from '../context'
 import { BsHandThumbsUp } from 'react-icons/bs'
 const Meals = () => {
-  const { loading, meals, selectMeal, addToFavorites } = useGlobalContext();
+const { loading, meals, selectMeal, addToFavorites } = useGlobalContext();
 
-  if (loading) {
-    return <section className="section">
-      <h4>Loading...</h4>
-    </section>
-  }
+if (loading) {
+return <section className="section">
+<h4>Loading...</h4>
+</section>
+}
 
-  if (meals.length < 1) {
-    return <section className="section">
-      <h4>No meals matched your search term. Please try again.</h4>
-    </section>
-  }
+if (meals.length < 1) {
+return <section className="section">
+<h4>No meals matched your search term. Please try again.</h4>
+</section>
+}
 
-  return <section className="section-center">
-    {meals.map((singleMeal) => {
-      const { idMeal, strMeal: title, strMealThumb: image } = singleMeal
-      return <article key={idMeal} className="single-meal" >
-        <img src={image} className="img" onClick={() => selectMeal(idMeal)} />
-        <footer>
-          <h5>{title}</h5>
-          <button className='like-btn' onClick={() => addToFavorites(idMeal)}><BsHandThumbsUp /></button>
-        </footer>
-      </article>
-    })}
+return <section className="section-center">
+{meals.map((singleMeal) => {
+const { idMeal, strMeal: title, strMealThumb: image } = singleMeal
+return <article key={idMeal} className="single-meal" >
+<img src={image} className="img" onClick={() => selectMeal(idMeal)} />
+<footer>
+<h5>{title}</h5>
+<button className='like-btn' onClick={() => addToFavorites(idMeal)}><BsHandThumbsUp /></button>
+</footer>
+</article>
+})}
+
   </section>
 
 }
@@ -974,17 +930,15 @@ App.jsx
 import { useGlobalContext } from './context'
 import './App.css'
 
-
-
 import Search from './components/Search'
 import Meals from './components/Meals'
 import Modal from './components/Modal'
 import Favorites from './components/Favorites'
 export default function App() {
-  const { showModal, favorites } = useGlobalContext()
+const { showModal, favorites } = useGlobalContext()
 
-  return (
-    <main>
+return (
+<main>
 
       <Search />
       {favorites.length > 0 && <Favorites />}
@@ -992,22 +946,22 @@ export default function App() {
       <Meals />
       {showModal && <Modal />}
     </main>
-  )
+
+)
 }
 /components/Favorites
 
 import { useGlobalContext } from '../context'
 
-
 const Favorites = () => {
-  const { favorites, selectMeal, removeFromFavorites } = useGlobalContext()
+const { favorites, selectMeal, removeFromFavorites } = useGlobalContext()
 
-  return <section className="favorites">
-    <div className="favorites-content">
-      <h5>Favorites</h5>
-      <div className="favorites-container">
-        {favorites.map((item) => {
-          const { idMeal, strMealThumb: image } = item;
+return <section className="favorites">
+<div className="favorites-content">
+<h5>Favorites</h5>
+<div className="favorites-container">
+{favorites.map((item) => {
+const { idMeal, strMealThumb: image } = item;
 
           return <div key={idMeal} className="favorite-item" >
             <img src={image} className="favorites-img img" />
@@ -1016,80 +970,79 @@ const Favorites = () => {
         })}
       </div>
     </div>
+
   </section>
 }
-
 
 export default Favorites
 Favorites CSS
 App.css
 
-/* Favorites */
+/_ Favorites _/
 
 .favorites{
-  background:var(--black);
-  color:var(--white);
-  padding:1rem 0;
+background:var(--black);
+color:var(--white);
+padding:1rem 0;
 }
 
 .favorites-content{
-  width: var(--view-width);
-  max-width: var(--max-width);
-  margin:0 auto;
+width: var(--view-width);
+max-width: var(--max-width);
+margin:0 auto;
 }
 .favorites-container{
-  display:flex;
-  gap:0.5rem;
-  flex-wrap:wrap;
+display:flex;
+gap:0.5rem;
+flex-wrap:wrap;
 }
 .favorite-item{
-  text-align:center;
+text-align:center;
 }
 .favorites-img{
-  width:60px;
-  border-radius:50%;
-  border:5px solid var(--white);
-  cursor:pointer;
+width:60px;
+border-radius:50%;
+border:5px solid var(--white);
+cursor:pointer;
 }
 .remove-btn{
-  margin-top:0.25rem;
-  background:transparent;
-  color:var(--white);
-  border:transparent;
-  cursor:pointer;
-  transition:var(--transition);
-  font-size:0.5rem;
+margin-top:0.25rem;
+background:transparent;
+color:var(--white);
+border:transparent;
+cursor:pointer;
+transition:var(--transition);
+font-size:0.5rem;
 }
 .remove-btn:hover{
-  color:var(--red-dark);
+color:var(--red-dark);
 }
 SelectMeal Refactor
 context.jsx
 
 const selectMeal = (idMeal, favoriteMeal) => {
-    let meal;
-    if (favoriteMeal) {
-      meal = favorites.find((meal) => meal.idMeal === idMeal);
-    } else {
-      meal = meals.find((meal) => meal.idMeal === idMeal);
-    }
-    setSelectedMeal(meal);
-    setShowModal(true)
-  }
+let meal;
+if (favoriteMeal) {
+meal = favorites.find((meal) => meal.idMeal === idMeal);
+} else {
+meal = meals.find((meal) => meal.idMeal === idMeal);
+}
+setSelectedMeal(meal);
+setShowModal(true)
+}
 /components/Favorites.jsx
 
 import { useGlobalContext } from '../context'
 
-
 const Favorites = () => {
-  const { favorites, selectMeal, removeFromFavorites } = useGlobalContext()
+const { favorites, selectMeal, removeFromFavorites } = useGlobalContext()
 
-  return <section className="favorites">
-    <div className="favorites-content">
-      <h5>Favorites</h5>
-      <div className="favorites-container">
-        {favorites.map((item) => {
-          const { idMeal, strMealThumb: image } = item;
+return <section className="favorites">
+<div className="favorites-content">
+<h5>Favorites</h5>
+<div className="favorites-container">
+{favorites.map((item) => {
+const { idMeal, strMealThumb: image } = item;
 
           return <div key={idMeal} className="favorite-item" >
             <img src={image} className="favorites-img img" onClick={() => selectMeal(idMeal, true)} />
@@ -1098,48 +1051,46 @@ const Favorites = () => {
         })}
       </div>
     </div>
+
   </section>
 }
-
 
 export default Favorites
 Add Favorites to Local Storage
 contex.jsx
 
 const getFavoritesFromLocalStorage = () => {
-  let favorites = localStorage.getItem('favorites');
-  if (favorites) {
-    favorites = JSON.parse(localStorage.getItem('favorites'))
-  }
-  else {
-    favorites = []
-  }
-  return favorites
+let favorites = localStorage.getItem('favorites');
+if (favorites) {
+favorites = JSON.parse(localStorage.getItem('favorites'))
+}
+else {
+favorites = []
+}
+return favorites
 }
 
 const AppProvider = ({ children }) => {
-  
-  const [favorites, setFavorites] = useState(getFavoritesFromLocalStorage());
 
-  
-  const addToFavorites = (idMeal) => {
-    const meal = meals.find((meal) => meal.idMeal === idMeal);
-    const alreadyFavorite = favorites.find((meal) => meal.idMeal === idMeal);
-    if (alreadyFavorite) return
-    const updatedFavorites = [...favorites, meal]
-    setFavorites(updatedFavorites)
-    localStorage.setItem("favorites", JSON.stringify(updatedFavorites))
-  }
-  const removeFromFavorites = (idMeal) => {
-    const updatedFavorites = favorites.filter((meal) => meal.idMeal !== idMeal);
-    setFavorites(updatedFavorites)
-    localStorage.setItem("favorites", JSON.stringify(updatedFavorites))
-  }
-  return (
-    <AppContext.Provider
-      value={{ loading, meals, setSearchTerm, fetchRandomMeal, showModal, selectMeal, selectedMeal, closeModal, favorites, addToFavorites, removeFromFavorites }}
-    >
-      {children}
-    </AppContext.Provider>
-  )
+const [favorites, setFavorites] = useState(getFavoritesFromLocalStorage());
+
+const addToFavorites = (idMeal) => {
+const meal = meals.find((meal) => meal.idMeal === idMeal);
+const alreadyFavorite = favorites.find((meal) => meal.idMeal === idMeal);
+if (alreadyFavorite) return
+const updatedFavorites = [...favorites, meal]
+setFavorites(updatedFavorites)
+localStorage.setItem("favorites", JSON.stringify(updatedFavorites))
+}
+const removeFromFavorites = (idMeal) => {
+const updatedFavorites = favorites.filter((meal) => meal.idMeal !== idMeal);
+setFavorites(updatedFavorites)
+localStorage.setItem("favorites", JSON.stringify(updatedFavorites))
+}
+return (
+<AppContext.Provider
+value={{ loading, meals, setSearchTerm, fetchRandomMeal, showModal, selectMeal, selectedMeal, closeModal, favorites, addToFavorites, removeFromFavorites }} >
+{children}
+</AppContext.Provider>
+)
 }
