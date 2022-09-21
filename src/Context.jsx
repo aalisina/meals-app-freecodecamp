@@ -1,6 +1,6 @@
-import { useContext } from "react";
+import { createContext } from "react";
 
-const AppContext = React.createContext();
+const AppContext = createContext();
 
 const AppProvider = ({ children }) => {
   const valueObj = {
@@ -9,3 +9,5 @@ const AppProvider = ({ children }) => {
   };
   return <AppContext.Provider value={valueObj}>{children}</AppContext.Provider>;
 };
+
+export { AppContext, AppProvider };
