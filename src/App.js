@@ -1,10 +1,18 @@
-import logo from './logo.svg';
 import './App.css';
+import Meals from './components/Meals';
+import Favorites from './components/Favorites';
+import Modal from './components/Modal';
+import Search from './components/Search';
 
 function App() {
   return (
     <div className="App">
-      <main><h1>Meals App</h1></main>
+      <main>
+        <Search />
+        <Favorites />
+        <Meals />
+        <Modal />
+      </main>
     </div>
   );
 }
