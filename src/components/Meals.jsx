@@ -1,8 +1,7 @@
-import { useContext } from "react";
-import { AppContext } from "../Context";
+import { useGlobalContext } from "../Context";
 
 function Meals() {
-  const {what, where} = useContext(AppContext);
+  const {what, where} = useGlobalContext();
   console.log(what, where);
 
   return <h1>Meals component</h1>;
