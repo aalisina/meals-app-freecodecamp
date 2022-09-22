@@ -4,7 +4,28 @@ function Meals() {
   const { meals } = useGlobalContext();
   console.log(meals);
 
-  return <h1>Meals component</h1>;
+  return (
+    <section className="section-center">
+      {meals.map((meal) => {
+        const { idMeal, strMeal: title, strMealThumb: image } = meal;
+
+        return (
+          <article key={idMeal} className="single-meal">
+            <img
+              src={image}
+              alt={title}
+              style={{ width: "200px" }}
+              className="img"
+            />
+            <footer>
+              <h5>{title}</h5>
+              <button className="like-btn">Click Me</button>
+            </footer>
+          </article>
+        );
+      })}
+    </section>
+  );
 }
 
 export default Meals;
