@@ -11,12 +11,7 @@ function Meals() {
 
         return (
           <article key={idMeal} className="single-meal">
-            <img
-              src={image}
-              alt={title}
-              style={{ width: "200px" }}
-              className="img"
-            />
+            <img src={image} alt={title} className="img" />
             <footer>
               <h5>{title}</h5>
               <button className="like-btn">Click Me</button>
