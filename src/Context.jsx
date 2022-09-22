@@ -12,10 +12,14 @@ const AppProvider = ({ children }) => {
     setUser,
   };
   const fetchUser = async () => {
-    const res = await fetch("https://randomuser.me/api/");
-    const json = await res.json();
-    const user = json.results[0];
-    setUser(user);
+    try {
+      const res = await fetch("https://randomuser.me/api/");
+      const json = await res.json();
+      const user = json.results[0];
+      setUser(user);
+    } catch (error) {
+      console.error(error);
+    }
   };
   useEffect(() => {
     fetchUser();
