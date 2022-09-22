@@ -2,6 +2,10 @@ import { createContext, useContext, useEffect, useState } from "react";
 
 const AppContext = createContext();
 
+const MEAL_BY_NAME = 'www.themealdb.com/api/json/v1/1/search.php?s=a'
+const RANDOM_MEAL='www.themealdb.com/api/json/v1/1/random.php'
+
+
 const AppProvider = ({ children }) => {
   const [user, setUser] = useState([]);
 
