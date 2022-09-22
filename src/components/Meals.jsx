@@ -1,8 +1,8 @@
 import { useGlobalContext } from "../Context";
 
 function Meals() {
-  const { user } = useGlobalContext();
-  console.log(user);
+  const { meals } = useGlobalContext();
+  console.log(meals);
 
   return <h1>Meals component</h1>;
 }
