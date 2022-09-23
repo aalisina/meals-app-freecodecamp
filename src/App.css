@@ -167,6 +167,12 @@ ul {
 /* Search */
 /* Favorites */
 /* Meals */
+.section {
+  padding: 3rem 0;
+  width: var(--view-width);
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
 .section-center {
   padding: 3rem 0;
   width: var(--view-width);
