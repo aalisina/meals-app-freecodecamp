@@ -2,9 +2,10 @@ import { useGlobalContext } from "../Context";
 import { BsHandThumbsUp } from "react-icons/bs";
 
 function Meals() {
-  const { meals } = useGlobalContext();
-  console.log(meals);
-
+  const { meals, loading } = useGlobalContext();
+  if(loading) {
+    return <section className="section"><h4>Loading...</h4></section>
+  }
   return (
     <section className="section-center">
       {meals.map((meal) => {
