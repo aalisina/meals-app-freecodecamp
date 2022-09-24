@@ -3,6 +3,7 @@ import { useGlobalContext } from "../Context";
 
 function Search() {
   const [text, setText] = useState("");
+  const { setSearchTerm } = useGlobalContext();
 
   const handleChange = (e) => {
     setText(e.target.value);
@@ -10,6 +11,10 @@ function Search() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (text) {
+      console.log(text);
+      setSearchTerm(text);
+    }
   };
 
   return (
