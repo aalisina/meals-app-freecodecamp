@@ -30,7 +30,15 @@ const AppProvider = ({ children }) => {
     fetchMeals(RANDOM_MEAL_URL);
   };
 
+  // In order to prevent a bug that is caused by the change in the searchTerm in handleRandomMeals
+  // we add another useEffect to run the first time the app loads and another one tied to the search
+  // term but with an early return in case the search term is empty.
   useEffect(() => {
+    fetchMeals(MEAL_BASE_URL);
+  }, []);
+
+  useEffect(() => {
+    if (!searchTerm) return;
     fetchMeals(`${MEAL_BASE_URL}${searchTerm}`);
   }, [searchTerm]);
 
