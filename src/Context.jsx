@@ -4,7 +4,7 @@ import axios from "axios";
 const AppContext = createContext();
 
 const MEAL_BASE_URL = "https://www.themealdb.com/api/json/v1/1/search.php?s=";
-const RANDOM_MEAL = "https://www.themealdb.com/api/json/v1/1/random.php";
+const RANDOM_MEAL_URL = "https://www.themealdb.com/api/json/v1/1/random.php";
 
 const AppProvider = ({ children }) => {
   const [meals, setMeals] = useState([]);
@@ -25,6 +25,11 @@ const AppProvider = ({ children }) => {
     }
     setLoading(false);
   };
+
+  const fetchRandomMeal = () => {
+    fetchMeals(RANDOM_MEAL_URL);
+  };
+
   useEffect(() => {
     fetchMeals(`${MEAL_BASE_URL}${searchTerm}`);
   }, [searchTerm]);
@@ -34,6 +39,7 @@ const AppProvider = ({ children }) => {
     setMeals,
     loading,
     setSearchTerm,
+    fetchRandomMeal,
   };
 
   return (
