@@ -6,7 +6,7 @@ function Modal() {
   return (
     <aside className="modal-overlay">
       <div className="modal-container">
-        <h3>{selectedMeal} Meal</h3>
+        <h3>{selectedMeal.strMeal}</h3>
         <button onClick={closeModal}>Close</button>
       </div>
     </aside>
