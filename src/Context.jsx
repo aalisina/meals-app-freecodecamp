@@ -10,6 +10,8 @@ const AppProvider = ({ children }) => {
   const [meals, setMeals] = useState([]);
   const [loading, setLoading] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
+  // set initial state temporarily to true to test
+  const [showModal, setShowModal] = useState(true);
 
   const fetchMeals = async (url) => {
     setLoading(true);
@@ -48,6 +50,8 @@ const AppProvider = ({ children }) => {
     loading,
     setSearchTerm,
     fetchRandomMeal,
+    showModal,
+    setShowModal,
   };
 
   return (
