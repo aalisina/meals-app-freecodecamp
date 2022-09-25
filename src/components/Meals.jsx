@@ -2,7 +2,7 @@ import { useGlobalContext } from "../Context";
 import { BsHandThumbsUp } from "react-icons/bs";
 
 function Meals() {
-  const { meals, loading, selectMealFunc, selectedMeal } = useGlobalContext();
+  const { meals, loading, selectMealFunc } = useGlobalContext();
   if (loading) {
     return (
       <section className="section">
@@ -28,8 +28,6 @@ function Meals() {
               src={image}
               alt={title}
               className="img"
-              // We put an arrow function here, otherwise the function will be invoked immediately and
-              // not on the click event
               onClick={() => {
                 selectMealFunc(idMeal);
               }}
