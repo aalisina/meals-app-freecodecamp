@@ -30,7 +30,9 @@ function Meals() {
               className="img"
               // We put an arrow function here, otherwise the function will be invoked immediately and
               // not on the click event
-              onClick={() => selectMealFunc(idMeal)}
+              onClick={() => {
+                selectMealFunc(idMeal);
+              }}
             />
             <footer>
               <h5>{title}</h5>
