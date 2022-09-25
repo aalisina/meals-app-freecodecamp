@@ -270,4 +270,6 @@ ul {
   display: grid;
   /* combines align items and justify content */
   place-items: center;
+  transition: var(--transition);
+  z-index: 100;
 }
