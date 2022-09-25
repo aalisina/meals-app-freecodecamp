@@ -21,6 +21,10 @@ const AppProvider = ({ children }) => {
     setShowModal(true);
   };
 
+  const closeModal = () => {
+    setShowModal(false);
+  };
+
   const fetchMeals = async (url) => {
     setLoading(true);
     try {
@@ -62,6 +66,7 @@ const AppProvider = ({ children }) => {
     setShowModal,
     selectMealFunc,
     selectedMeal,
+    closeModal,
   };
 
   return (
