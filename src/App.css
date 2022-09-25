@@ -273,3 +273,12 @@ ul {
   transition: var(--transition);
   z-index: 100;
 }
+
+.modal-container {
+  width: 80vw;
+  max-width: 800px;
+  height: 80vh;
+  background: var(--white);
+  overflow: scroll;
+  border-radius: var(--borderRadius);
+}
