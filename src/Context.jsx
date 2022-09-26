@@ -6,6 +6,16 @@ const AppContext = createContext();
 const MEAL_BASE_URL = "https://www.themealdb.com/api/json/v1/1/search.php?s=";
 const RANDOM_MEAL_URL = "https://www.themealdb.com/api/json/v1/1/random.php";
 
+const getFavsFromLocalStorage = () => {
+  let favorites = localStorage.getItem("favorites");
+  if (favorites) {
+    favorites = JSON.parse(localStorage.getItem("favorites"));
+  } else {
+    favorites = [];
+  }
+  return favorites;
+};
+
 const AppProvider = ({ children }) => {
   const [meals, setMeals] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -13,7 +23,7 @@ const AppProvider = ({ children }) => {
   // set initial state temporarily to true to test
   const [showModal, setShowModal] = useState(false);
   const [selectedMeal, setSelectedMeal] = useState(null);
-  const [favorites, setFavorites] = useState([]);
+  const [favorites, setFavorites] = useState(getFavsFromLocalStorage());
 
   const addToFavorites = (idMeal) => {
     const alreadyFav = favorites.find((fav) => fav.idMeal === idMeal);
@@ -21,10 +31,12 @@ const AppProvider = ({ children }) => {
     const meal = meals.find((m) => m.idMeal === idMeal);
     const updatedFavs = [...favorites, meal];
     setFavorites(updatedFavs);
+    localStorage.setItem("favorites", JSON.stringify(updatedFavs));
   };
   const removeFromFavorites = (idMeal) => {
     const updatedFavs = favorites.filter((fav) => fav.idMeal !== idMeal);
     setFavorites(updatedFavs);
+    localStorage.setItem("favorites", JSON.stringify(updatedFavs));
   };
   const selectMealFunc = (idMeal, favoriteMeal) => {
     let meal;
