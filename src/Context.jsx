@@ -28,7 +28,13 @@ const AppProvider = ({ children }) => {
   };
   const selectMealFunc = (idMeal, favoriteMeal) => {
     let meal;
-    meal = meals.find((m) => m.idMeal === idMeal);
+    // Without this if statement the modal won't show if we fetch a random meal and then select a
+    // a favorite to show in the modal
+    if (favoriteMeal) {
+      meal = favorites.find((m) => m.idMeal === idMeal);
+    } else {
+      meal = meals.find((m) => m.idMeal === idMeal);
+    }
     setSelectedMeal(meal);
     setShowModal(true);
   };
