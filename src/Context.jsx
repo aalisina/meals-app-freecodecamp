@@ -12,7 +12,7 @@ const AppProvider = ({ children }) => {
   const [searchTerm, setSearchTerm] = useState("");
   // set initial state temporarily to true to test
   const [showModal, setShowModal] = useState(false);
-  let [selectedMeal, setSelectedMeal] = useState(null);
+  const [selectedMeal, setSelectedMeal] = useState(null);
 
   const selectMealFunc = (idMeal, favoriteMeal) => {
     let meal;
