@@ -1,8 +1,12 @@
 import { useGlobalContext } from "../Context";
-import { BsHandThumbsUp } from "react-icons/bs";
+import {
+  BsHandThumbsUp,
+  BsHandThumbsUpFill,
+} from "react-icons/bs";
 
 function Meals() {
-  const { meals, loading, selectMealFunc, addToFavorites } = useGlobalContext();
+  const { meals, loading, selectMealFunc, addToFavorites, favorites } =
+    useGlobalContext();
   if (loading) {
     return (
       <section className="section">
@@ -38,7 +42,11 @@ function Meals() {
                 className="like-btn"
                 onClick={() => addToFavorites(idMeal)}
               >
-                <BsHandThumbsUp />
+                {favorites.find((fav) => fav.idMeal === idMeal) ? (
+                  <BsHandThumbsUpFill />
+                ) : (
+                  <BsHandThumbsUp />
+                )}
               </button>
             </footer>
           </article>
