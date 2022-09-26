@@ -13,7 +13,19 @@ const AppProvider = ({ children }) => {
   // set initial state temporarily to true to test
   const [showModal, setShowModal] = useState(false);
   const [selectedMeal, setSelectedMeal] = useState(null);
+  const [favorites, setFavorites] = useState([]);
 
+  const addToFavorites = (idMeal) => {
+    const meal = meals.find((m) => m.idMeal === idMeal);
+    const alreadyFav = favorites.find((fav) => fav.idMeal === idMeal);
+    if (alreadyFav) return;
+    const updatedFavs = [...favorites, meal];
+    setFavorites(updatedFavs);
+  };
+  const removeFromFavorites = (idMeal) => {
+    const updatedFavs = favorites.filter((fav) => fav.idMeal !== idMeal);
+    setFavorites(updatedFavs);
+  };
   const selectMealFunc = (idMeal, favoriteMeal) => {
     let meal;
     meal = meals.find((m) => m.idMeal === idMeal);
@@ -67,6 +79,8 @@ const AppProvider = ({ children }) => {
     selectMealFunc,
     selectedMeal,
     closeModal,
+    addToFavorites,
+    removeFromFavorites,
   };
 
   return (
