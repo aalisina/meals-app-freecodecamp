@@ -3,6 +3,7 @@ import { useGlobalContext } from "../Context";
 
 function Favorites() {
   const { favorites, removeFromFavorites, selectMealFunc } = useGlobalContext();
+  
   return (
     <section className="favorites">
       <div className="favorites-content">
